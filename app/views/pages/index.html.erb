@@ -1,0 +1,83 @@
+<center><h1>PS! : THIS IS NOT MOBILE RESPONSIVE 
+	<span class="glyphicon glyphicon-thumbs-down"></span></i></h1></center><br><hr>
+<div class="row" style="margin-top: 20px;">
+	<div class="col-md-6">
+		<center><h4>Messages: </h4></center>
+		<ul class="list-grup" id="chat-messages">
+		</ul>
+	</div>
+
+	<div class="col-md-6">
+		<div class="container-fluid" style="position: fixed">
+		<input type="" name="" id="name" class="form-control" placeholder="Enter your name"><br>
+			<textarea placeholder="Enter your message here" class="form-control message-txt" id="message"></textarea>
+			<br>
+			<button class="btn btn-primary form-control" id="send">Send</button>
+		</div>
+	</div>
+</div>
+
+<style>
+	.message-txt {
+		width: 600px;
+		height: 200px!important;
+		resize: none;
+	}
+</style>
+
+<script>
+	$(document).ready(function() {
+		App.chat.received = function(data) {
+			$('#chat-messages').append(`
+				<div class="alert alert-info" role="alert">
+				  <a href="#" class="alert-link"><strong>` + name + `</strong> ` + data['message'] + `</a>
+				</div>
+				`);
+		}
+
+		$('#send').on('click', function() {
+			var name = $('#name').val();
+			var message = "<b>" + name + "</b>" + ": " + $('#message').val();
+			if ($('#name').val() == "") {
+				alert("Please enter your name");
+			} else if ($('#message').val() == "") {
+				alert("Please enter your message");
+			}else {
+				App.chat.send_message(message);
+				$('#name').slideUp(500).hide(500);
+				$('#message').val("");	
+			}
+		});
+	});
+</script>
+
+<style>
+	#message {
+		height: 100px;
+		resize: none;
+	}	
+	#send {
+		margin-top: 10px;
+	}
+
+	.messages {
+		position: fixed;
+		background-color: green;
+	}
+
+	.message-container {
+		bottom: 0%;
+    position: fixed;
+    background-color: #664d76;
+    width: 100%;
+	}
+	.message-here{
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	#message {
+		height: 100px;
+		resize: none;
+	}
+</style>
